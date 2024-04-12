@@ -1,3 +1,9 @@
+Extra Credit
+=====
+
+I modified the app to merge the Post and Delete pages. There is now one single textbox
+that will either post or delete an entry. An appropriate message will display when clicking either button.
+
 se-app
 =====
 
@@ -30,6 +36,4 @@ Credits
 Original Code - Ilia Zlatkin
 
 Improvements - Darin Debrestian
-# CEN4020-se-app
-# CEN4020-se-app
-# CEN4020-se-app
+
