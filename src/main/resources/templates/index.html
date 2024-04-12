@@ -12,24 +12,36 @@
   </style>
 </head>
 <header th:insert="blocks/header :: header"></header>
+
 <body>
 <td class="b-table_cell">
-    <form class="software_engineering_class_form layer1"
-          action="/api"
-          role="post"
-          aria-label="post in the local file">
+    <form class="software_engineering_class_form layer1" action="/handle" method="post">
+
         <div class="post_input">
-            <span class="post_span">
-                    <input class="input_control" tabindex="2" spellcheck="false" aria-label="post" id="text" maxlength="400" name="post_text"></span>
-            </span>
+            <input class="input_control" tabindex="2" spellcheck="false" aria-label="post" id="text" maxlength="400" name="post_text">
         </div>
+
+        <input type="hidden" name="actionType" id="actionType" value="post">
+
         <div class="post_button">
-            <button class="post button" tabindex="-1" role="button" type="submit">
-                <span class="button__text">Post</span>
-            </button>
+            <button type="button" onclick="submitForm('post')">Post</button>
         </div>
+
+        <div class="delete_button">
+            <button type="button" onclick="submitForm('delete')">Delete</button>
+        </div>
+
+        <div class="message" th:if="${message}" th:text="${message}"></div>
+
     </form>
 </td>
+
+<script>
+function submitForm(action) {
+    document.getElementById('actionType').value = action; // Set the action type
+    document.querySelector('.software_engineering_class_form').submit(); // Submit the form
+}
+</script>
 
 </body>
 </html>

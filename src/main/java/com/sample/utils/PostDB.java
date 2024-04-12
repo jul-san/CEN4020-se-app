@@ -179,7 +179,7 @@ public class PostDB {
             return false;
         }
     }
-
+ 
     String getAllPosts() {
         if (!isLoggedIn)
             return "Internal error: Not logged in";

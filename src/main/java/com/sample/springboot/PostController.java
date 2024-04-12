@@ -87,6 +87,42 @@ public class PostController {
         return "index";
     }
 
+    @RequestMapping(value = "/handle", method = RequestMethod.POST)
+    public String handlePostOrDelete(@RequestParam("post_text") String text,
+                                     @RequestParam("actionType") String actionType,
+                                     Model model, HttpSession session) {
+
+        LoggerPost loggerPost = getLogger(session);
+        model.addAttribute("isLoggedIn", loggerPost.GetLoggedIn());
+
+        if (!loggerPost.GetLoggedIn()) {
+            return "login";
+        }
+
+        switch (actionType.toLowerCase()) {
+            case "post":
+                loggerPost.PostToDB(text);
+                model.addAttribute("message", "Post added successfully.");
+                break;
+            case "delete":
+                boolean deleted = loggerPost.DeletePostFromDB(text);
+                model.addAttribute("deleted", deleted);
+                model.addAttribute("deleteAttempted", true);
+                if (deleted) {
+                    model.addAttribute("message", "The requested post has been deleted from history.");
+                } else {
+                    model.addAttribute("message", "The requested post does not exist in the history.");
+                }
+                break;
+
+            default:
+                model.addAttribute("message", "Invalid action.");
+                break;
+        }
+
+        return "index";
+    }
+
     @RequestMapping(value = "/api")
     public String AddPost(@RequestParam("post_text") String post,
     Model model, HttpSession sesh) {
@@ -124,4 +160,3 @@ public class PostController {
     }
 
 }
-
